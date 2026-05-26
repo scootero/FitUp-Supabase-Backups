@@ -22,6 +22,50 @@ supabase db dump -f data.sql --use-copy --data-only -x "storage.buckets_vectors"
 
 5. (Optional) Copy edge functions
 
+
+------------- *******--------
+MODIFICATIONs : 
+---
+mkdir -p "$HOME/dev/FitUp-Supabase-Backups/2026-05-02--PostPhase4--pre--Redesigning-core-focus"
+cd "$HOME/dev/FitUp-Supabase-Backups/2026-05-02--PostPhase4--pre--Redesigning-core-focus"
+
+supabase init
+supabase link --project-ref uushejbizmlxzxonkuki
+-----
+***************
+
+>> supabase db dump \
+  -f data.sql \
+  --use-copy \
+  --data-only \
+  -x "storage.buckets_vectors" \
+  -x "storage.vector_indexes"
+  
+>> supabase functions list
+
+>> for fn in \
+  finalize-match-day \
+  complete-match \
+  update-leaderboard \
+  dispatch-notification \
+  matchmaking-pairing \
+  on-all-accepted \
+  send-pending-reminders \
+  send-morning-checkins \
+  retry-matchmaking-search \
+  send-evening-checkins
+do
+  supabase functions download "$fn"
+done
+
+
+*************
+----
+
+=========
+
+
+
 cp -R /path/to/FitUp-App/supabase/functions ./edge-functions
 
 6. Commit backup
